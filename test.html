@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조 웹 서비스 | Cho Web Services</title>
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-color: #2563eb;
+            --bg-light: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+        }
+ 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+ 
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+ 
+        .container { max-width: 1000px; width: 100%; }
+        h1 { font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; word-break: keep-all; }
+        h2 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary-blue); word-break: keep-all; }
+        p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem; word-break: keep-all; }
+        .highlight { color: var(--accent-color); font-weight: bold; }
+ 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+ 
+        th, td { padding: 1.5rem; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 1.1rem; }
+        th { background-color: var(--primary-blue); color: white; }
+        .cho-column { background-color: #eff6ff; font-weight: bold; color: var(--primary-blue); border-left: 2px solid var(--accent-color); border-right: 2px solid var(--accent-color); }
+ 
+        .price-card {
+            padding: 3rem;
+            border: 3px solid var(--accent-color);
+            border-radius: 16px;
+            background-color: #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .scroll-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .scroll-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+ 
+        /* HERO VALUE PROPS */
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            text-align: left;
+        }
+        .value-prop {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--accent-color);
+        }
+        .value-prop .vp-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .value-prop h3 { font-size: 1rem; color: var(--primary-blue); margin-bottom: 0.35rem; }
+        .value-prop p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; }
+        .hero-sub { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+ 
+        /* MOBILE COMPARISON CARDS (replaces table on small screens) */
+        .compare-cards { display: none; }
+        .compare-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: left;
+        }
+        .compare-card h4 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .compare-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .compare-row .label { font-size: 0.85rem; color: var(--text-muted); flex-shrink: 0; }
+        .compare-row .val { font-size: 0.95rem; font-weight: 600; text-align: right; }
+        .compare-row .val.them { color: #dc2626; }
+        .compare-row .val.us { color: var(--accent-color); }
+        .compare-card.cho-card {
+            border: 2px solid var(--accent-color);
+            background: #eff6ff;
+        }
+        .compare-card.cho-card h4 { color: var(--primary-blue); font-weight: 700; }
+ 
+        /* SLIDE 1 HERO BACKGROUND */
+        #slide1 {
+            position: relative;
+            background-color: var(--bg-light);
+            background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('images/main-2.jpg') center/cover no-repeat;
+        }
+        #slide1 h1 { color: #ffffff; }
+        #slide1 .hero-subtitle { color: #cbd5e1; }
+        #slide1 .hero-tagline { color: #f1f5f9; }
+        #slide1 > .container > p { color: #e2e8f0; }
+        #slide1 .highlight { color: #60a5fa; }
+        #slide1 .stat-item .stat-number { color: #60a5fa; }
+        #slide1 .stat-item .stat-label { color: #94a3b8; }
+        #slide1 .stats-bar { border-color: rgba(255,255,255,0.15); }
+        /* FEATURE CARD IMAGES */
+        .feature-img {
+            width: 100%;
+            height: 140px;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .feature-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Placeholder text shown when no image is loaded yet */
+        .feature-img .placeholder-text {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+ 
+        /* DEVICE MOCKUP FRAME */
+        /* SLIDE 1 FEATURES GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            text-align: left;
+        }
+        .feature-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--accent-color);
+        }
+        .feature-item .icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .feature-item h3 { font-size: 1rem; color: var(--primary-blue); margin-bottom: 0.3rem; }
+        .feature-item p { font-size: 0.95rem; margin-bottom: 0; color: var(--text-muted); }
+        .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .hero-tagline { font-size: 1.4rem; color: var(--text-main); margin-bottom: 1.5rem; font-weight: 600; }
+ 
+        /* MOBILE COMPARISON CARDS (replaces table on small screens) */
+        .comparison-cards { display: none; }
+        .comparison-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .comparison-card .card-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .comparison-card .card-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .comparison-card .card-row > div { flex: 1; }
+        .comparison-card .side-label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.25rem;
+        }
+        .comparison-card .side-label.them { color: #94a3b8; }
+        .comparison-card .side-label.us { color: var(--accent-color); }
+        .comparison-card .them-text { font-size: 0.95rem; color: var(--text-muted); }
+        .comparison-card .us-text {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            background: #eff6ff;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            border-left: 3px solid var(--accent-color);
+        }
+ 
+        /* STATS BAR */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            padding: 1.25rem 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .stat-item { text-align: center; }
+        .stat-item .stat-number { font-size: 1.8rem; font-weight: 900; color: var(--accent-color); line-height: 1.2; }
+        .stat-item .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+ 
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            p { font-size: 1.05rem; }
+            .features-grid { grid-template-columns: 1fr; gap: 1rem; }
+            table { display: none; }
+            .comparison-cards { display: block; text-align: left; margin-top: 1.5rem; }
+            section { min-height: auto; padding: 3rem 1.25rem; }
+            .stats-bar { gap: 1.5rem; flex-wrap: wrap; }
+            .stat-item .stat-number { font-size: 1.4rem; }
+            .price-card { padding: 2rem 1.5rem; }
+ 
+            /* Stack comparison card rows vertically */
+            .comparison-card .card-row {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .feature-img { height: 120px; }
+        }
+ 
+        .mockup-frame {
+            width: 320px; /* Width of a standard mobile screen */
+            height: 600px;
+            margin: 2rem auto;
+            border: 12px solid #1e293b;
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            position: relative;
+        }
+        /* The actual embedded website */
+        .mockup-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+ 
+    <section id="slide1">
+        <div class="container">
+            <h1>조 웹 서비스</h1>
+            <p class="hero-subtitle">Cho Web Services — 한인 소상공인 전문 웹사이트 제작</p>
+            <p class="hero-tagline">도구 요금제 가격으로<br>전문가를 고용하세요.</p>
+            <p>Wix, Squarespace 등 월정액 빌더를 쓰면서 결국 직접 만들고 계신가요?<br>
+            <span class="highlight">연 $300이면 제작부터 관리까지 전부 맡기실 수 있습니다.</span></p>
+ 
+            <div class="features-grid">
+                <div class="feature-item">
+                    <!-- IMAGE: Replace the placeholder div below with: <img src="images/feature-design.jpg" alt="맞춤 디자인 제작"> -->
+                    <div class="feature-img">
+                        <span class="placeholder-text">디자인 이미지</span>
+                    </div>
+                    <div class="icon">🎨</div>
+                    <h3>맞춤 디자인 제작</h3>
+                    <p>템플릿이 아닌, 비즈니스에 딱 맞는 전용 사이트를 만들어 드립니다.</p>
+                </div>
+                <div class="feature-item">
+                    <!-- IMAGE: Replace the placeholder div below with: <img src="images/feature-katalk.jpg" alt="카톡으로 간편 수정"> -->
+                    <div class="feature-img">
+                        <span class="placeholder-text">카톡 소통 이미지</span>
+                    </div>
+                    <div class="icon">💬</div>
+                    <h3>카톡으로 간편 수정</h3>
+                    <p>메뉴 변경, 사진 교체, 가격 업데이트 — 카톡 한 통이면 끝.</p>
+                </div>
+                <div class="feature-item">
+                    <!-- IMAGE: Replace the placeholder div below with: <img src="images/feature-bilingual.jpg" alt="한국어 + 영어 지원"> -->
+                    <div class="feature-img">
+                        <span class="placeholder-text">이중언어 이미지</span>
+                    </div>
+                    <div class="icon">🌐</div>
+                    <h3>한국어 + 영어 지원</h3>
+                    <p>한인 고객도, 영어 고객도 모두 잡을 수 있는 이중언어 웹사이트.</p>
+                </div>
+            </div>
+ 
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-number">$0</div>
+                    <div class="stat-label">초기 제작비</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0.1초</div>
+                    <div class="stat-label">로딩 속도</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">카톡 문의</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">맞춤 제작</div>
+                </div>
+            </div>
+ 
+            <a href="#slide2" class="scroll-btn">진짜 비용 비교하기 ↓</a>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted);">📞 224-260-1002 · 카카오톡 상담 가능</p>
+        </div>
+    </section>
+ 
+    <section id="slide2">
+        <div class="container">
+            <h2>빌더 요금제, 그게 전부가 아닙니다</h2>
+            <table>
+                <tr>
+                    <th>항목</th>
+                    <th>타사 빌더 (Wix / WP Creator)</th>
+                    <th class="cho-column">조 웹 서비스 (Cho Web Services)</th>
+                </tr>
+                <tr>
+                    <td><strong>연간 구독료</strong></td>
+                    <td>약 $230 ~ $350 (도구 사용료만)</td>
+                    <td class="cho-column">$300 (전부 포함)</td>
+                </tr>
+                <tr>
+                    <td><strong>전문가 제작비</strong></td>
+                    <td>최소 $500 ~ $2,000 추가 발생</td>
+                    <td class="cho-column">$0 (초기 제작 무료)</td>
+                </tr>
+                <tr>
+                    <td><strong>업데이트/관리</strong></td>
+                    <td>직접 공부해서 수정</td>
+                    <td class="cho-column">카톡 한 통이면 제가 수정</td>
+                </tr>
+                <tr>
+                    <td><strong>사이트 속도</strong></td>
+                    <td>범용 빌더 특성상 무겁고 느림</td>
+                    <td class="cho-column">0.1초 고속 로딩 시스템</td>
+                </tr>
+            </table>
+ 
+            <div class="comparison-cards">
+                <div class="comparison-card">
+                    <div class="card-label">연간 구독료</div>
+                    <div class="card-row">
+                        <div>
+                            <div class="side-label them">타사 빌더</div>
+                            <div class="them-text">약 $230 ~ $350 (도구 사용료만)</div>
+                        </div>
+                        <div>
+                            <div class="side-label us">조 웹 서비스</div>
+                            <div class="us-text">$300 (전부 포함)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="card-label">전문가 제작비</div>
+                    <div class="card-row">
+                        <div>
+                            <div class="side-label them">타사 빌더</div>
+                            <div class="them-text">최소 $500 ~ $2,000 추가 발생</div>
+                        </div>
+                        <div>
+                            <div class="side-label us">조 웹 서비스</div>
+                            <div class="us-text">$0 (초기 제작 무료)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="card-label">업데이트 / 관리</div>
+                    <div class="card-row">
+                        <div>
+                            <div class="side-label them">타사 빌더</div>
+                            <div class="them-text">사장님이 직접 공부해서 수정</div>
+                        </div>
+                        <div>
+                            <div class="side-label us">조 웹 서비스</div>
+                            <div class="us-text">카톡 한 통이면 제가 수정</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="card-label">사이트 속도</div>
+                    <div class="card-row">
+                        <div>
+                            <div class="side-label them">타사 빌더</div>
+                            <div class="them-text">범용 빌더 특성상 무겁고 느림</div>
+                        </div>
+                        <div>
+                            <div class="side-label us">조 웹 서비스</div>
+                            <div class="us-text">0.1초 고속 로딩 시스템</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#slide3" class="scroll-btn">최종 혜택 확인 ↓</a>
+        </div>
+    </section>
+    <section id="portfolio" style="background-color: #f8fafc;">
+    <div class="container">
+        <h2>실제 제작 사례를 확인하세요</h2>
+        <p>직접 제작하고 관리 중인 로컬 에스테틱 웹사이트입니다.<br>아래 화면을 직접 스크롤해 보세요.</p>
+        
+        <div class="mockup-frame">
+            <iframe 
+                src="https://sungm97.github.io/han-skin-care/" 
+                title="에스테틱 스튜디오 포트폴리오"
+                loading="lazy">
+            </iframe>
+        </div>
+        
+        <a href="#slide3" class="scroll-btn">비용 비교해보기 ↓</a>
+    </div>
+    </section>
+    <section id="slide3">
+        <div class="container">
+            <div class="price-card">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">All-Inclusive Flat Rate</h3>
+                <p style="font-size: 4rem; font-weight: 900; color: var(--accent-color); margin-bottom: 0;">$300</p>
+                <p style="font-weight: bold; margin-bottom: 2rem;">첫해 제작비 $0 | 이후 연간 유지비 $300</p>
+                
+                <ul style="text-align: left; display: inline-block; list-style: none; font-size: 1.1rem;">
+                    <li>✅ <strong>무료 맞춤 디자인:</strong>비즈니스만을 위한 전용 웹사이트</li>
+                    <li>✅ <strong>무제한 유지보수:</strong> 메뉴 수정, 사진 교체 등 상시 대기</li>
+                    <li>✅ <strong>초고속 호스팅:</strong> Cloudflare 기반의 끊기지 않는 안정성</li>
+                    <li>✅ <strong>이중언어 지원:</strong> 한국어/영어 고객 모두를 잡는 완벽한 대응</li>
+                </ul>
+            </div>
+            <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: bold;">"도구 요금제 가격으로 전문가를 고용하세요."<br>224-260-1002<br></p>
+        </div>
+    </section>
+ 
+</body>
+</html>
