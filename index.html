@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조 웹 서비스 | Cho Web Services</title>
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-color: #2563eb;
+            --bg-light: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .container { max-width: 1000px; width: 100%; }
+        h1 { font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; word-break: keep-all; }
+        h2 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary-blue); word-break: keep-all; }
+        p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem; word-break: keep-all; }
+        .highlight { color: var(--accent-color); font-weight: bold; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td { padding: 1.5rem; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 1.1rem; }
+        th { background-color: var(--primary-blue); color: white; }
+        .cho-column { background-color: #eff6ff; font-weight: bold; color: var(--primary-blue); border-left: 2px solid var(--accent-color); border-right: 2px solid var(--accent-color); }
+
+        .price-card {
+            padding: 3rem;
+            border: 3px solid var(--accent-color);
+            border-radius: 16px;
+            background-color: #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        /* DEVICE MOCKUP FRAME */
+        .mockup-frame {
+            width: 320px; /* Width of a standard mobile screen */
+            height: 600px;
+            margin: 2rem auto;
+            border: 12px solid #1e293b;
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            position: relative;
+        }
+        /* The actual embedded website */
+        .mockup-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="slide1">
+        <div class="container">
+            <h1>조 웹 서비스</h1>
+            <p>비싼 도구 요금제만 결제하고 직접 만드시겠습니까?<br><span class="highlight">단돈 $300에 전문가가 제작부터 관리까지 책임집니다.</span></p>
+            <a href="#slide2" class="scroll-btn">진짜 비용 비교하기 ↓</a>
+        </div>
+    </section>
+
+    <section id="slide2">
+        <div class="container">
+            <h2>빌더 요금제, 그게 전부가 아닙니다</h2>
+            <table>
+                <tr>
+                    <th>항목</th>
+                    <th>타사 빌더 (Wix / WP Creator)</th>
+                    <th class="cho-column">조 웹 서비스 (Cho Web Services)</th>
+                </tr>
+                <tr>
+                    <td><strong>연간 구독료</strong></td>
+                    <td>약 $230 ~ $350 (도구 사용료만)</td>
+                    <td class="cho-column">$300 (전부 포함)</td>
+                </tr>
+                <tr>
+                    <td><strong>전문가 제작비</strong></td>
+                    <td>최소 $500 ~ $2,000 추가 발생</td>
+                    <td class="cho-column">$0 (초기 제작 무료)</td>
+                </tr>
+                <tr>
+                    <td><strong>업데이트/관리</strong></td>
+                    <td>사장님이 직접 공부해서 수정</td>
+                    <td class="cho-column">카톡 한 통이면 제가 수정</td>
+                </tr>
+                <tr>
+                    <td><strong>사이트 속도</strong></td>
+                    <td>범용 빌더 특성상 무겁고 느림</td>
+                    <td class="cho-column">0.1초 고속 로딩 시스템</td>
+                </tr>
+            </table>
+            <a href="#slide3" class="scroll-btn">최종 혜택 확인 ↓</a>
+        </div>
+    </section>
+    <section id="portfolio" style="background-color: #f8fafc;">
+    <div class="container">
+        <h2>실제 제작 사례를 확인하세요</h2>
+        <p>제가 직접 제작하고 관리 중인 로컬 에스테틱 웹사이트입니다.<br>아래 화면을 직접 스크롤해 보세요.</p>
+        
+        <div class="mockup-frame">
+            <iframe 
+                src="https://sungm97.github.io/han-skin-care/" 
+                title="에스테틱 스튜디오 포트폴리오"
+                loading="lazy">
+            </iframe>
+        </div>
+        
+        <a href="#slide3" class="scroll-btn">비용 비교해보기 ↓</a>
+    </div>
+    </section>
+    <section id="slide3">
+        <div class="container">
+            <div class="price-card">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">All-Inclusive Flat Rate</h3>
+                <p style="font-size: 4rem; font-weight: 900; color: var(--accent-color); margin-bottom: 0;">$300</p>
+                <p style="font-weight: bold; margin-bottom: 2rem;">첫해 제작비 $0 | 이후 연간 유지비 $300</p>
+                
+                <ul style="text-align: left; display: inline-block; list-style: none; font-size: 1.1rem;">
+                    <li>✅ <strong>무료 맞춤 디자인:</strong> 사장님 비즈니스만을 위한 전용 웹사이트</li>
+                    <li>✅ <strong>무제한 유지보수:</strong> 메뉴 수정, 사진 교체 등 상시 대기</li>
+                    <li>✅ <strong>초고속 호스팅:</strong> Cloudflare 기반의 끊기지 않는 안정성</li>
+                    <li>✅ <strong>이중언어 지원:</strong> 한국어/영어 고객 모두를 잡는 완벽한 대응</li>
+                </ul>
+            </div>
+            <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: bold;">"도구 요금제 가격으로 전문가를 고용하세요."<br>224-260-1002<br></p>
+        </div>
+    </section>
+
+</body>
+</html>
