@@ -23,7 +23,7 @@
         
         .lang-toggle-btn {
             display: inline-block;
-            background-color: rgba(255, 255, 255, 0.95); /* Slight white background so it pops on the dark image */
+            background-color: rgba(255, 255, 255, 0.95);
             color: var(--primary-blue);
             border: 2px solid var(--primary-blue);
             padding: 0.5rem 1.2rem;
@@ -83,6 +83,7 @@
             word-break: keep-all;
         }
  
+        /* DESKTOP TABLE */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -125,7 +126,8 @@
             justify-content: center;
             gap: 1.5rem;
             margin-top: 1.5rem;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Keeps them from stacking initially */
+            width: 100%;
         }
         .cta-btn {
             display: inline-flex;
@@ -179,52 +181,6 @@
         .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
         .hero-tagline { font-size: 1.4rem; color: var(--text-main); margin-bottom: 1.5rem; font-weight: 600; }
  
-        /* MOBILE COMPARISON CARDS */
-        .comparison-cards { display: none; }
-        .comparison-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-        .comparison-card .card-label {
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-        }
-        .comparison-card .card-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 0.25rem;
-        }
-        .comparison-card .card-row > div { flex: 1; }
-        .comparison-card .side-label {
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            margin-bottom: 0.25rem;
-        }
-        .comparison-card .side-label.them { color: #94a3b8; }
-        .comparison-card .side-label.us { color: var(--accent-color); }
-        .comparison-card .them-text { font-size: 0.95rem; color: var(--text-muted); }
-        .comparison-card .us-text {
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-            background: #eff6ff;
-            border-radius: 8px;
-            padding: 0.5rem 0.75rem;
-            border-left: 3px solid var(--accent-color);
-        }
- 
         /* STATS BAR */
         .stats-bar {
             display: flex;
@@ -240,7 +196,7 @@
         .stat-item .stat-number { font-size: 1.8rem; font-weight: 900; color: var(--accent-color); line-height: 1.2; }
         .stat-item .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
  
-        /* FEATURE CARD IMAGES - Reverted to Placeholders */
+        /* FEATURE CARD IMAGES - Placeholders */
         .feature-img {
             width: 100%;
             height: 140px;
@@ -296,25 +252,20 @@
             border: none;
         }
 
+        /* MOBILE VS CARDS (HIDDEN ON DESKTOP) */
+        .mobile-vs-cards { display: none; }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
             p { font-size: 1.05rem; }
             
             .price-highlight { font-size: 1.3rem; padding: 0.6rem 1rem; }
-
             .features-grid { grid-template-columns: 1fr; gap: 1rem; }
-            table { display: none; }
-            .comparison-cards { display: block; text-align: left; margin-top: 1.5rem; }
             section { min-height: auto; padding: 3rem 1.25rem; }
             .stats-bar { gap: 1.5rem; flex-wrap: wrap; }
             .stat-item .stat-number { font-size: 1.4rem; }
             .price-card { padding: 2rem 1.5rem; }
- 
-            .comparison-card .card-row {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
             .feature-img { height: 160px; }
 
             .portfolio-grid {
@@ -323,10 +274,70 @@
                 gap: 2rem;
             }
             
-            .cta-buttons {
-                flex-direction: column;
-                gap: 1rem;
+            /* Ensures buttons stay side-by-side on mobile screens */
+            .cta-buttons { 
+                flex-direction: row; 
+                gap: 0.5rem; 
             }
+            .cta-btn {
+                flex: 1; /* Makes them equal width */
+                padding: 0.8rem 0.5rem;
+                font-size: 1rem;
+                white-space: nowrap; /* Prevents text from breaking onto new lines */
+            }
+
+            /* HIDE DESKTOP TABLE & SHOW MOBILE VS CARDS */
+            table { display: none; }
+            .mobile-vs-cards { display: block; margin-top: 1.5rem; width: 100%; }
+
+            .vs-card {
+                background: white;
+                border-radius: 12px;
+                margin-bottom: 1.2rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+                border: 1px solid #e2e8f0;
+                overflow: hidden;
+            }
+            .vs-header {
+                background: var(--bg-light);
+                text-align: center;
+                padding: 0.75rem;
+                font-weight: 800;
+                color: var(--text-main);
+                border-bottom: 1px solid #e2e8f0;
+                font-size: 1.1rem;
+            }
+            .vs-body {
+                display: flex;
+            }
+            .vs-half {
+                flex: 1;
+                padding: 1.25rem 0.5rem;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 0.95rem;
+                line-height: 1.4;
+            }
+            .vs-half.them {
+                border-right: 1px solid #e2e8f0;
+                color: var(--text-muted);
+            }
+            .vs-half.us {
+                background: #eff6ff;
+                color: var(--primary-blue);
+                font-weight: 700;
+            }
+            .vs-label {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+                letter-spacing: 0.05em;
+            }
+            .vs-half.them .vs-label { color: #94a3b8; }
+            .vs-half.us .vs-label { color: var(--accent-color); }
         }
     </style>
 </head>
@@ -442,8 +453,10 @@
  
     <section id="slide2">
         <div class="container">
+            
             <div class="ko">
                 <h2>빌더 요금제, 그게 전부가 아닙니다</h2>
+                
                 <table>
                     <tr>
                         <th>항목</th>
@@ -472,65 +485,67 @@
                     </tr>
                 </table>
      
-                <div class="comparison-cards">
-                    <div class="comparison-card">
-                        <div class="card-label">연간 구독료</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">타사 빌더</div>
-                                <div class="them-text">약 $230 ~ $350 (도구 사용료만)</div>
+                <div class="mobile-vs-cards">
+                    <div class="vs-card">
+                        <div class="vs-header">연간 구독료</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">타사 빌더</span>
+                                약 $230 ~ $350<br><span style="font-size:0.8rem">(도구 사용료만)</span>
                             </div>
-                            <div>
-                                <div class="side-label us">미드웨스트 웹 서비스</div>
-                                <div class="us-text">$300 (전부 포함)</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comparison-card">
-                        <div class="card-label">전문가 제작비</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">타사 빌더</div>
-                                <div class="them-text">최소 $500 ~ $2,000 추가 발생</div>
-                            </div>
-                            <div>
-                                <div class="side-label us">미드웨스트 웹 서비스</div>
-                                <div class="us-text">$0 (초기 제작 무료)</div>
+                            <div class="vs-half us">
+                                <span class="vs-label">미드웨스트</span>
+                                $300<br><span style="font-size:0.8rem">(전부 포함)</span>
                             </div>
                         </div>
                     </div>
-                    <div class="comparison-card">
-                        <div class="card-label">업데이트 / 관리</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">타사 빌더</div>
-                                <div class="them-text">사장님이 직접 공부해서 수정</div>
+                    <div class="vs-card">
+                        <div class="vs-header">전문가 제작비</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">타사 빌더</span>
+                                최소 $500 ~ $2,000+<br><span style="font-size:0.8rem">(추가 발생)</span>
                             </div>
-                            <div>
-                                <div class="side-label us">미드웨스트 웹 서비스</div>
-                                <div class="us-text">카톡 한 통이면 제가 수정</div>
+                            <div class="vs-half us">
+                                <span class="vs-label">미드웨스트</span>
+                                $0<br><span style="font-size:0.8rem">(초기 제작 무료)</span>
                             </div>
                         </div>
                     </div>
-                    <div class="comparison-card">
-                        <div class="card-label">사이트 속도</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">타사 빌더</div>
-                                <div class="them-text">범용 빌더 특성상 무겁고 느림</div>
+                    <div class="vs-card">
+                        <div class="vs-header">업데이트 / 관리</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">타사 빌더</span>
+                                사장님이 직접 공부해서 수정
                             </div>
-                            <div>
-                                <div class="side-label us">미드웨스트 웹 서비스</div>
-                                <div class="us-text">0.1초 고속 로딩 시스템</div>
+                            <div class="vs-half us">
+                                <span class="vs-label">미드웨스트</span>
+                                카톡 한 통이면 제가 수정
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vs-card">
+                        <div class="vs-header">사이트 속도</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">타사 빌더</span>
+                                범용 빌더 특성상 무겁고 느림
+                            </div>
+                            <div class="vs-half us">
+                                <span class="vs-label">미드웨스트</span>
+                                0.1초 고속 로딩 시스템
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="#portfolio" class="scroll-btn">최종 혜택 확인 ↓</a>
+                
+                <a href="#portfolio" class="scroll-btn">실제 제작 사례 보기 ↓</a>
             </div>
 
             <div class="en">
                 <h2>The builder subscription isn't the whole cost</h2>
+                
                 <table>
                     <tr>
                         <th>Comparison</th>
@@ -559,61 +574,62 @@
                     </tr>
                 </table>
      
-                <div class="comparison-cards">
-                    <div class="comparison-card">
-                        <div class="card-label">Annual Subscription</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">DIY Builders</div>
-                                <div class="them-text">~$230 - $350 (Just for the tool)</div>
+                <div class="mobile-vs-cards">
+                    <div class="vs-card">
+                        <div class="vs-header">Annual Subscription</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">DIY Builders</span>
+                                ~$230 - $350<br><span style="font-size:0.8rem">(Tool Only)</span>
                             </div>
-                            <div>
-                                <div class="side-label us">Midwest Web Services</div>
-                                <div class="us-text">$300 (Everything Included)</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comparison-card">
-                        <div class="card-label">Expert Build Fee</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">DIY Builders</div>
-                                <div class="them-text">$500 - $2,000+ extra</div>
-                            </div>
-                            <div>
-                                <div class="side-label us">Midwest Web Services</div>
-                                <div class="us-text">$0 (Free Initial Build)</div>
+                            <div class="vs-half us">
+                                <span class="vs-label">Midwest Web</span>
+                                $300<br><span style="font-size:0.8rem">(All-Inclusive)</span>
                             </div>
                         </div>
                     </div>
-                    <div class="comparison-card">
-                        <div class="card-label">Updates & Maintenance</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">DIY Builders</div>
-                                <div class="them-text">You learn how to edit it yourself</div>
+                    <div class="vs-card">
+                        <div class="vs-header">Expert Build Fee</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">DIY Builders</span>
+                                $500 - $2,000+<br><span style="font-size:0.8rem">(Extra Fee)</span>
                             </div>
-                            <div>
-                                <div class="side-label us">Midwest Web Services</div>
-                                <div class="us-text">Just text me, I handle it</div>
+                            <div class="vs-half us">
+                                <span class="vs-label">Midwest Web</span>
+                                $0<br><span style="font-size:0.8rem">(Free Build)</span>
                             </div>
                         </div>
                     </div>
-                    <div class="comparison-card">
-                        <div class="card-label">Website Speed</div>
-                        <div class="card-row">
-                            <div>
-                                <div class="side-label them">DIY Builders</div>
-                                <div class="them-text">Slow & bloated code</div>
+                    <div class="vs-card">
+                        <div class="vs-header">Updates & Maintenance</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">DIY Builders</span>
+                                You learn how to edit it yourself
                             </div>
-                            <div>
-                                <div class="side-label us">Midwest Web Services</div>
-                                <div class="us-text">0.1s Lightning Fast Load</div>
+                            <div class="vs-half us">
+                                <span class="vs-label">Midwest Web</span>
+                                Just text me, I handle it
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vs-card">
+                        <div class="vs-header">Website Speed</div>
+                        <div class="vs-body">
+                            <div class="vs-half them">
+                                <span class="vs-label">DIY Builders</span>
+                                Slow & bloated code structure
+                            </div>
+                            <div class="vs-half us">
+                                <span class="vs-label">Midwest Web</span>
+                                0.1s Lightning Fast Load
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="#portfolio" class="scroll-btn">View Final Benefits ↓</a>
+
+                <a href="#portfolio" class="scroll-btn">View Real Case Study ↓</a>
             </div>
         </div>
     </section>
@@ -647,10 +663,10 @@
 
             <div style="margin-top: 3rem; text-align: center; width: 100%;">
                 <div class="ko">
-                    <a href="#slide3" class="scroll-btn" style="margin-top: 0;">비용 비교해보기 ↓</a>
+                    <a href="#slide3" class="scroll-btn" style="margin-top: 0;">최종 요금제 확인 ↓</a>
                 </div>
                 <div class="en">
-                    <a href="#slide3" class="scroll-btn" style="margin-top: 0;">View Pricing ↓</a>
+                    <a href="#slide3" class="scroll-btn" style="margin-top: 0;">View Final Pricing ↓</a>
                 </div>
             </div>
 
