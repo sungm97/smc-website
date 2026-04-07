@@ -23,7 +23,7 @@
         
         .lang-toggle-btn {
             display: inline-block;
-            background-color: var(--bg-light);
+            background-color: rgba(255, 255, 255, 0.95); /* Slight white background so it pops on the dark image */
             color: var(--primary-blue);
             border: 2px solid var(--primary-blue);
             padding: 0.5rem 1.2rem;
@@ -31,7 +31,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
         .lang-toggle-btn:hover {
@@ -53,7 +53,35 @@
         h1 { font-size: 3.5rem; color: var(--primary-blue); margin-bottom: 1rem; word-break: keep-all; }
         h2 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary-blue); word-break: keep-all; }
         p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem; word-break: keep-all; }
-        .highlight { color: var(--accent-color); font-weight: bold; }
+        
+        /* SLIDE 1 HERO BACKGROUND & DARK THEME TEXT */
+        #slide1 {
+            position: relative;
+            background-color: var(--bg-light);
+            background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('images/main-2.jpg') center/cover no-repeat;
+        }
+        #slide1 h1 { color: #ffffff; }
+        #slide1 .hero-subtitle { color: #cbd5e1; }
+        #slide1 .hero-tagline { color: #f1f5f9; }
+        #slide1 .ko > p, #slide1 .en > p { color: #e2e8f0; } 
+        #slide1 .stat-item .stat-number { color: #60a5fa; }
+        #slide1 .stat-item .stat-label { color: #94a3b8; }
+        #slide1 .stats-bar { border-color: rgba(255,255,255,0.15); }
+        
+        /* PRICE HIGHLIGHT FOR SLIDE 1 */
+        .price-highlight {
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            background-color: #eff6ff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--accent-color);
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.15);
+            word-break: keep-all;
+        }
  
         table {
             width: 100%;
@@ -90,13 +118,52 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .scroll-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+
+        /* CONTACT BUTTONS CSS */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+        .btn-phone {
+            background-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
+        }
+        .btn-phone:hover {
+            box-shadow: 0 6px 15px rgba(30, 58, 138, 0.35);
+        }
+        .btn-kakao {
+            background-color: #FEE500;
+            color: #3C1E1E;
+            box-shadow: 0 4px 10px rgba(254, 229, 0, 0.3);
+        }
+        .btn-kakao:hover {
+            box-shadow: 0 6px 15px rgba(254, 229, 0, 0.45);
+        }
  
         /* SLIDE 1 FEATURES GRID */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            margin-top: 2.5rem;
+            margin-top: 3rem;
             text-align: left;
         }
         .feature-item {
@@ -112,7 +179,7 @@
         .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
         .hero-tagline { font-size: 1.4rem; color: var(--text-main); margin-bottom: 1.5rem; font-weight: 600; }
  
-        /* MOBILE COMPARISON CARDS (replaces table on small screens) */
+        /* MOBILE COMPARISON CARDS */
         .comparison-cards { display: none; }
         .comparison-card {
             background: white;
@@ -173,7 +240,7 @@
         .stat-item .stat-number { font-size: 1.8rem; font-weight: 900; color: var(--accent-color); line-height: 1.2; }
         .stat-item .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
  
-        /* FEATURE CARD IMAGES */
+        /* FEATURE CARD IMAGES - Reverted to Placeholders */
         .feature-img {
             width: 100%;
             height: 140px;
@@ -211,11 +278,10 @@
             align-items: center;
         }
 
-        /* UPDATED: LARGER PHONE RESOLUTION */
         .mockup-frame {
-            width: 380px; /* Increased from 320px */
-            max-width: 95vw; /* Prevents overflow on very small phones */
-            height: 720px; /* Increased from 600px */
+            width: 380px;
+            max-width: 95vw;
+            height: 720px;
             margin: 0 auto; 
             border: 12px solid #1e293b;
             border-radius: 36px;
@@ -234,6 +300,9 @@
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
             p { font-size: 1.05rem; }
+            
+            .price-highlight { font-size: 1.3rem; padding: 0.6rem 1rem; }
+
             .features-grid { grid-template-columns: 1fr; gap: 1rem; }
             table { display: none; }
             .comparison-cards { display: block; text-align: left; margin-top: 1.5rem; }
@@ -246,12 +315,17 @@
                 flex-direction: column;
                 gap: 0.75rem;
             }
-            .feature-img { height: 120px; }
+            .feature-img { height: 160px; }
 
             .portfolio-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -266,9 +340,9 @@
             <div class="ko">
                 <h1>미드웨스트 웹 서비스</h1>
                 <p class="hero-subtitle">Midwest Web Services — 한인 소상공인 전문 웹사이트 제작</p>
-                <p class="hero-tagline">도구 요금제 가격으로<br>전문가를 고용하세요.</p>
+                <p class="hero-tagline">도구 요금제 가격으로 전문가를 고용하세요.</p>
                 <p>Wix, Squarespace 등 월정액 빌더를 쓰면서 결국 직접 만들고 계신가요?<br>
-                <span class="highlight">연 $300이면 제작부터 관리까지 전부 맡기실 수 있습니다.</span></p>
+                <span class="price-highlight">연 $300이면 제작부터 관리까지 전부 맡기실 수 있습니다.</span></p>
      
                 <div class="features-grid">
                     <div class="feature-item">
@@ -311,15 +385,14 @@
                 </div>
      
                 <a href="#slide2" class="scroll-btn">진짜 비용 비교하기 ↓</a>
-                <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted);">📞 224-260-1002 · 카카오톡 상담 가능</p>
             </div>
 
             <div class="en">
                 <h1>Midwest Web Services</h1>
                 <p class="hero-subtitle">Web Design Built for Local Small Businesses</p>
-                <p class="hero-tagline">Hire a professional expert<br>for the price of a DIY tool.</p>
+                <p class="hero-tagline">Hire a professional expert for the price of a DIY tool.</p>
                 <p>Are you paying monthly for Wix or Squarespace just to struggle building it yourself?<br>
-                <span class="highlight">For $300 a year, I handle the custom build and all the maintenance.</span></p>
+                <span class="price-highlight">For $300 a year, I handle the custom build AND the maintenance.</span></p>
      
                 <div class="features-grid">
                     <div class="feature-item">
@@ -362,7 +435,6 @@
                 </div>
      
                 <a href="#slide2" class="scroll-btn">Compare the True Cost ↓</a>
-                <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted);">📞 224-260-1002 · Available via Text or Call</p>
             </div>
 
         </div>
@@ -601,7 +673,13 @@
                         <li>✅ <strong>이중언어 지원:</strong> 한국어/영어 고객 모두를 잡는 완벽한 대응</li>
                     </ul>
                 </div>
-                <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: bold;">"도구 요금제 가격으로 전문가를 고용하세요."<br>224-260-1002<br></p>
+                
+                <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: bold;">"도구 요금제 가격으로 전문가를 고용하세요."</p>
+                
+                <div class="cta-buttons">
+                    <a href="tel:2242601002" class="cta-btn btn-phone">📞 224-260-1002</a>
+                    <a href="#" class="cta-btn btn-kakao" target="_blank">💬 카카오톡 상담</a>
+                </div>
             </div>
 
             <div class="en">
@@ -617,7 +695,12 @@
                         <li>✅ <strong>Bilingual Support:</strong> Perfect translations for your entire market</li>
                     </ul>
                 </div>
-                <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: bold;">"Hire an expert for the price of a DIY tool."<br>Call or Text: 224-260-1002<br></p>
+                
+                <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: bold;">"Hire an expert for the price of a DIY tool."</p>
+                
+                <div class="cta-buttons">
+                    <a href="tel:2242601002" class="cta-btn btn-phone">📞 224-260-1002</a>
+                </div>
             </div>
 
         </div>
