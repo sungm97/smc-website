@@ -186,6 +186,39 @@
         .btn-kakao:hover {
             box-shadow: 0 6px 15px rgba(254, 229, 0, 0.45);
         }
+
+        /* NEW: FLOATING CTA BUTTONS */
+        .floating-cta {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+        .float-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 12px;
+        }
+        .float-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+        }
+        .float-phone {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        .float-kakao {
+            background-color: #FEE500;
+            color: #3C1E1E;
+        }
  
         /* SLIDE 1 FEATURES GRID */
         .features-grid {
@@ -313,6 +346,16 @@
                 white-space: nowrap; 
             }
 
+            /* Shrink floating buttons on mobile so they don't block too much screen */
+            .floating-cta {
+                bottom: 20px;
+                right: 20px;
+            }
+            .float-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
+
             /* HIDE DESKTOP TABLE & SHOW MOBILE VS CARDS */
             table { display: none; }
             .mobile-vs-cards { display: block; margin-top: 1.5rem; width: 100%; }
@@ -369,6 +412,16 @@
     </style>
 </head>
 <body class="lang-ko">
+
+    <div class="floating-cta">
+        <div class="ko">
+            <a href="#" class="float-btn float-kakao" target="_blank">💬 카톡 문의</a>
+            <a href="tel:2242601002" class="float-btn float-phone">📞 전화 상담</a>
+        </div>
+        <div class="en">
+            <a href="tel:2242601002" class="float-btn float-phone">📞 Call Us</a>
+        </div>
+    </div>
 
     <section id="slide1">
         <div class="container">
